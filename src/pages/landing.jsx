@@ -54,7 +54,7 @@ const MedicalAILandingPage = ({ setMedicalData }) => {
       if (isPDF) {
         // Send to PDF API
         formData.append("pdf", selectedFile);
-        const response = await fetch("http://localhost:3000/api/upload/pdf", {
+        const response = await fetch("https://medicare-gen-ai-backend.up.railway.app/api/upload/pdf", {
           method: "POST",
           body: formData,
         });
@@ -71,17 +71,22 @@ const MedicalAILandingPage = ({ setMedicalData }) => {
         }
       } else if (isImage) {
         formData.append("image", selectedFile);
-        const response = await fetch("http://localhost:3000/api/upload/image", {
+        const response = await fetch("https://medicare-gen-ai-backend.up.railway.app/api/upload/image", {
+
           method: "POST",
           body: formData,
         });
         const result = await response.json();
+        const cleaned = cleanJsonString(result.geminiResponse);
+        const json = JSON.parse(cleaned);
+        setMedicalData(json);
 
         if (result.success) {
-          console.log("Image uploaded:", result.file);
-          alert("Image uploaded successfully!");
+          setLoading(false);
+          navigate("/dashboard");
         } else {
           alert("Error uploading image: " + result.error);
+          setLoading(false);
         }
       }
 
