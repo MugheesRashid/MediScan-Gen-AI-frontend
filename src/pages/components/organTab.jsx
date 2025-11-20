@@ -98,7 +98,8 @@ const OrgansTab = ({ data, selectedOrgan, onSelectOrgan }) => {
                           className={`h-2 rounded-full ${
                             organ.status === 'healthy' ? 'bg-green-500' :
                             organ.status === 'slight' ? 'bg-yellow-500' :
-                            organ.status === 'moderate' ? 'bg-orange-500' : 'bg-red-500'
+                            organ.status === 'moderate' ? 'bg-orange-500' :
+                            organ.status === '-' ? 'bg-grey-500' : 'bg-red-500'
                           }`}
                           style={{ width: `${organ.score}%` }}
                         ></div>

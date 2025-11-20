@@ -16,6 +16,7 @@ const RisksTab = ({ data, selectedRisk, onSelectRisk }) => {
     if (score >= 40) return 'text-yellow-400';
     return 'text-green-400';
   };
+  console.log("RisksTab data:", data);
 
   return (
     <div className="space-y-6">
@@ -24,11 +25,11 @@ const RisksTab = ({ data, selectedRisk, onSelectRisk }) => {
         <h2 className="text-xl font-bold mb-4">Health Risk Assessment</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-          {data.map(risk => (
+          {data.filter(d=> d.name !== '-' ).map(risk => (
             <div
               key={risk.id}
               className={`p-4 rounded-xl border cursor-pointer transition-all ${
-                selectedRisk === risk.id 
+                selectedRisk === risk.id
                   ? 'border-[#00C2A8] bg-[#00C2A8]/10 scale-105' 
                   : 'border-white/10 bg-white/5 hover:border-[#00C2A8]/30'
               } ${getRiskColor(risk.probability)}`}
@@ -49,7 +50,8 @@ const RisksTab = ({ data, selectedRisk, onSelectRisk }) => {
                     className={`h-2 rounded-full ${
                       risk.probability === 'low' ? 'bg-green-500' :
                       risk.probability === 'low-moderate' ? 'bg-yellow-500' :
-                      risk.probability === 'moderate' ? 'bg-orange-500' : 'bg-red-500'
+                      risk.probability === 'moderate' ? 'bg-orange-500' :
+                      risk.probability === '-' ? 'bg-grey-500' : 'bg-red-500'
                     }`}
                     style={{ width: `${risk.score}%` }}
                   ></div>

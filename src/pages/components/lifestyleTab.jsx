@@ -49,7 +49,7 @@ const LifestyleTab = ({ data }) => {
             </div>
           </div>
 
-          {/* Weekly Schedule */}
+          {/* Weekly Schedule
           <div className="bg-white/5 backdrop-blur-md rounded-2xl p-6 border border-white/10">
             <h3 className="text-lg font-bold mb-4">Weekly Schedule Template</h3>
             <div className="overflow-x-auto">
@@ -83,7 +83,7 @@ const LifestyleTab = ({ data }) => {
                 </tbody>
               </table>
             </div>
-          </div>
+          </div> */}
         </div>
       )}
 
@@ -136,7 +136,7 @@ const LifestyleTab = ({ data }) => {
           <div className="bg-white/5 backdrop-blur-md rounded-2xl p-6 border border-white/10">
             <h3 className="text-lg font-bold mb-4 text-blue-400">Supplement Plan</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {data.nutrition.supplements.map((supplement, index) => (
+              {data.nutrition.supplements.filter(d=> d.name !== "-").map((supplement, index) => (
                 <div key={index} className="bg-blue-500/10 rounded-xl p-4 border border-blue-500/20 text-center">
                   <h4 className="font-bold text-blue-400 mb-2">{supplement.name}</h4>
                   <div className="text-sm space-y-1">
@@ -146,10 +146,13 @@ const LifestyleTab = ({ data }) => {
                   </div>
                 </div>
               ))}
+              {data.nutrition.supplements.filter(d=> d.name !== "-").length === 0 && (
+                <div className="text-gray-400 col-span-3 text-center">No supplements recommended at this time.</div>
+              )}
             </div>
           </div>
 
-          {/* Sample Meal Plan */}
+          {/* Sample Meal Plan
           <div className="bg-white/5 backdrop-blur-md rounded-2xl p-6 border border-white/10">
             <h3 className="text-lg font-bold mb-4">Sample Daily Meal Plan</h3>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -172,7 +175,7 @@ const LifestyleTab = ({ data }) => {
                 </div>
               ))}
             </div>
-          </div>
+          </div> */}
         </div>
       )}
 
@@ -207,7 +210,7 @@ const LifestyleTab = ({ data }) => {
             ))}
           </div>
 
-          {/* Weekly Exercise Schedule */}
+          {/* Weekly Exercise Schedule
           <div className="bg-white/5 backdrop-blur-md rounded-2xl p-6 border border-white/10">
             <h3 className="text-lg font-bold mb-4">Weekly Exercise Schedule</h3>
             <div className="overflow-x-auto">
@@ -240,7 +243,7 @@ const LifestyleTab = ({ data }) => {
                 </tbody>
               </table>
             </div>
-          </div>
+          </div> */}
         </div>
       )}
 
@@ -275,7 +278,7 @@ const LifestyleTab = ({ data }) => {
             </div>
           </div>
 
-          {/* Progress Tracking */}
+          {/* Progress Tracking
           <div className="bg-white/5 backdrop-blur-md rounded-2xl p-6 border border-white/10">
             <h3 className="text-lg font-bold mb-4">Progress Tracking</h3>
             <div className="space-y-4">
@@ -299,7 +302,7 @@ const LifestyleTab = ({ data }) => {
                 </div>
               ))}
             </div>
-          </div>
+          </div> */}
         </div>
       )}
     </div>

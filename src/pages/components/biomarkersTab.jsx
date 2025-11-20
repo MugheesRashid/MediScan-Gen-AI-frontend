@@ -9,7 +9,10 @@ const BiomarkersTab = ({ data }) => {
     { id: 'metabolic', label: 'Metabolic', count: data.metabolic.length },
     { id: 'lipids', label: 'Lipids', count: data.lipids.length },
     { id: 'vitamins', label: 'Vitamins', count: data.vitamins.length },
-    { id: 'thyroid', label: 'Thyroid', count: data.thyroid.length }
+    { id: 'thyroid', label: 'Thyroid', count: data.thyroid.length },
+    { id: 'cardiac', label: 'Cardiac', count: data.cardiac.length },
+    { id: 'inflammation', label: 'Inflammation', count: data.inflammation.length },
+    { id: 'urine', label: 'Urine', count: data.urine.length },
   ];
 
   const getBiomarkersToShow = () => {

@@ -31,7 +31,7 @@ const OverviewTab = ({ data, abnormalCount }) => {
                     style={{ width: `${data.overallHealth.confidence}%` }}
                   ></div>
                 </div>
-                <span className="text-sm font-medium">{data.overallHealth.confidence}%</span>
+                <span className="text-sm font-medium">{data.overallHealth.confidence}</span>
               </div>
               <p className="text-xs text-gray-400 mt-1">Based on data quality and pattern recognition</p>
             </div>
@@ -69,7 +69,7 @@ const OverviewTab = ({ data, abnormalCount }) => {
           <div className="space-y-2 text-sm">
             <div className="flex justify-between">
               <span className="text-gray-400">Total Biomarkers</span>
-              <span className="font-medium">24</span>
+              <span className="font-medium">{data.biomarkers.bloodCount.length + data.biomarkers.metabolic.length + data.biomarkers.lipids.length + data.biomarkers.vitamins.length + data.biomarkers.thyroid.length}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-400">Abnormal Values</span>
@@ -85,7 +85,7 @@ const OverviewTab = ({ data, abnormalCount }) => {
             </div>
           </div>
         </div>
-
+{/* 
         <div className="bg-white/5 rounded-xl p-4 border border-white/10">
           <h3 className="font-bold mb-3">Health Trends</h3>
           <div className="space-y-2 text-sm">
@@ -103,7 +103,7 @@ const OverviewTab = ({ data, abnormalCount }) => {
             </div>
           </div>
           <HealthScoreGauge score={data.overallHealth.score} />
-        </div>
+        </div> */}
       </div>
     </div>
   );
@@ -125,7 +125,7 @@ const HealthScoreGauge = ({ score }) => {
         {/* Mask for partial fill based on score */}
         <div 
           className="absolute inset-0 rounded-full bg-[#0A1A2F] transform -rotate-90 origin-center transition-all duration-1000"
-          style={{ clipPath: `inset(0 0 0 ${100 - score}%)` }}
+          style={{ clipPath: `inset(0 0 0 ${score}%)` }}
         ></div>
         
         {/* Center Content */}
