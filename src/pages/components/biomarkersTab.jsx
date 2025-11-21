@@ -96,7 +96,7 @@ const BiomarkerCard = ({ marker }) => {
 
       {!isInRange(marker.value, marker.range) && (
         <div className="mt-2 text-xs">
-          {marker.value < marker.range.min ? 'Below normal range' : 'Above normal range'}
+          {marker.value < marker.range.min ? 'Below normal range' : marker.value === marker.range.min ? 'Need to work on' : 'Above normal range'}
         </div>
       )}
     </div>
