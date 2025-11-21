@@ -62,6 +62,12 @@ const MedicalAILandingPage = ({ setMedicalData }) => {
         const result = await response.json();
         const cleaned = cleanJsonString(result.geminiResponse);
         const json = JSON.parse(cleaned);
+        if(json.status === false){
+          alert("Uploaded file is not a valid medical report.");
+          setLoading(false);
+          return;
+        }
+
         setMedicalData(json);
         if (result.success) {
           setLoading(false);
