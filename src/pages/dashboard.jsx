@@ -211,7 +211,7 @@ const MedicalAIDashboard = ({ medicalData }) => {
 
                 <AbnormalMarkers markers={BioMarkers} />
 
-                <ActionItems data={medicalData} />
+                {/* <ActionItems data={medicalData} /> */}
               </div>
             </div>
           </div>
@@ -466,51 +466,51 @@ const AIChatAssistant = ({ isOpen, onToggle }) => {
 };
 
 // Action Items Component
-const ActionItems = ({ data }) => {
-  const urgentActions = [
-    {
-      action: "Start Vitamin D3 supplement",
-      priority: "high",
-      due: "Immediately",
-    },
-    {
-      action: "Schedule follow-up blood test",
-      priority: "medium",
-      due: "2 weeks",
-    },
-    {
-      action: "Begin cholesterol management diet",
-      priority: "medium",
-      due: "1 week",
-    },
-  ];
+// const ActionItems = ({ data }) => {
+//   const urgentActions = [
+//     {
+//       action: "Start Vitamin D3 supplement",
+//       priority: "high",
+//       due: "Immediately",
+//     },
+//     {
+//       action: "Schedule follow-up blood test",
+//       priority: "medium",
+//       due: "2 weeks",
+//     },
+//     {
+//       action: "Begin cholesterol management diet",
+//       priority: "medium",
+//       due: "1 week",
+//     },
+//   ];
 
-  return (
-    <div className="bg-white/5 backdrop-blur-md rounded-2xl p-6 border border-white/10">
-      <h3 className="font-bold mb-4">Recommended Actions</h3>
-      <div className="space-y-3">
-        {urgentActions.map((item, index) => (
-          <div
-            key={index}
-            className="flex items-center justify-between p-3 bg-white/5 rounded-lg border border-white/10"
-          >
-            <div className="flex items-center">
-              <div
-                className={`w-2 h-2 rounded-full mr-3 ${
-                  item.priority === "high" ? "bg-red-500" : "bg-yellow-500"
-                }`}
-              ></div>
-              <div>
-                <div className="font-medium text-sm">{item.action}</div>
-                <div className="text-xs text-gray-400">Due: {item.due}</div>
-              </div>
-            </div>
-            <button className="text-[#00C2A8] hover:text-[#7AF4D6] text-sm font-medium"></button>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
+//   return (
+//     <div className="bg-white/5 backdrop-blur-md rounded-2xl p-6 border border-white/10">
+//       <h3 className="font-bold mb-4">Recommended Actions</h3>
+//       <div className="space-y-3">
+//         {urgentActions.map((item, index) => (
+//           <div
+//             key={index}
+//             className="flex items-center justify-between p-3 bg-white/5 rounded-lg border border-white/10"
+//           >
+//             <div className="flex items-center">
+//               <div
+//                 className={`w-2 h-2 rounded-full mr-3 ${
+//                   item.priority === "high" ? "bg-red-500" : "bg-yellow-500"
+//                 }`}
+//               ></div>
+//               <div>
+//                 <div className="font-medium text-sm">{item.action}</div>
+//                 <div className="text-xs text-gray-400">Due: {item.due}</div>
+//               </div>
+//             </div>
+//             <button className="text-[#00C2A8] hover:text-[#7AF4D6] text-sm font-medium"></button>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
 
 export default MedicalAIDashboard;

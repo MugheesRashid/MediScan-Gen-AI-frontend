@@ -48,10 +48,10 @@ const RisksTab = ({ data, selectedRisk, onSelectRisk }) => {
                 <div className="w-full bg-white/10 rounded-full h-2 mr-3">
                   <div 
                     className={`h-2 rounded-full ${
-                      risk.probability === 'low' ? 'bg-green-500' :
-                      risk.probability === 'low-moderate' ? 'bg-yellow-500' :
-                      risk.probability === 'moderate' ? 'bg-orange-500' :
-                      risk.probability === '-' ? 'bg-grey-500' : 'bg-red-500'
+                      risk.probability === 'Low' ? 'bg-green-500' :
+                      risk.probability === 'Low-Moderate' ? 'bg-yellow-500' :
+                      risk.probability === 'Moderate' ? 'bg-orange-500' :
+                      risk.probability === 'High' ? 'bg-red-500' : 'bg-grey-500'
                     }`}
                     style={{ width: `${risk.score}%` }}
                   ></div>
@@ -60,7 +60,6 @@ const RisksTab = ({ data, selectedRisk, onSelectRisk }) => {
                   {risk.score}%
                 </span>
               </div>
-              
               <p className="text-xs text-gray-300 line-clamp-2">{risk.description}</p>
             </div>
           ))}
@@ -123,7 +122,7 @@ const RisksTab = ({ data, selectedRisk, onSelectRisk }) => {
       </div>
 
       {/* Risk Mitigation Timeline */}
-      <div className="bg-white/5 backdrop-blur-md rounded-2xl p-6 border border-white/10">
+      {/* <div className="bg-white/5 backdrop-blur-md rounded-2xl p-6 border border-white/10">
         <h3 className="text-lg font-bold mb-4">Risk Reduction Timeline</h3>
         <div className="space-y-4">
           {[
@@ -145,7 +144,7 @@ const RisksTab = ({ data, selectedRisk, onSelectRisk }) => {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
