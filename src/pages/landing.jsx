@@ -65,8 +65,13 @@ const MedicalAILandingPage = ({ setMedicalData }) => {
         console.log("Parsed JSON:", json);
         setMedicalData(json);
         if (result.success) {
-          setLoading(false);
-          navigate("/dashboard");
+          if (json.status === false) {
+            setLoading(false);
+            alert(json.msg);
+          } else {
+            setLoading(false);
+            navigate("/dashboard");
+          }
         } else {
           alert("Error processing PDF: " + result.error);
           setLoading(false);
