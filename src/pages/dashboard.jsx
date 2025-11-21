@@ -10,6 +10,7 @@ import Medication from "./components/medicationTab";
 const MedicalAIDashboard = ({ medicalData }) => {
   useEffect(() => {
     if (medicalData === null) return () => <p>Loading...</p>;
+    if (!medicalData.name) return () => <p>Invalid medical report.</p>;
   }, [medicalData]);
 
   const [activeTab, setActiveTab] = useState("overview");

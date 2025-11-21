@@ -25,7 +25,7 @@ const MedicalAILandingPage = ({ setMedicalData }) => {
     setLoading(true);
 
     if (!selectedFile) {
-      setLoading(false)
+      setLoading(false);
       alert("Please select a file");
       return;
     }
@@ -43,7 +43,7 @@ const MedicalAILandingPage = ({ setMedicalData }) => {
       );
 
     if (!isPDF && !isImage) {
-      setLoading(false)
+      setLoading(false);
       alert("Please upload a PDF or image file (JPG, PNG, etc.)");
       return;
     }
@@ -54,7 +54,7 @@ const MedicalAILandingPage = ({ setMedicalData }) => {
       if (isPDF) {
         // Send to PDF API
         formData.append("pdf", selectedFile);
-         const response = await fetch("https://medicare-gen-ai-backend.up.railway.app/api/upload/pdf", {
+        const response = await fetch("https://medicare-gen-ai-backend.up.railway.app/api/upload/pdf", {
         // const response = await fetch("http://localhost:3000/api/upload/pdf", {
           method: "POST",
           body: formData,
@@ -62,12 +62,7 @@ const MedicalAILandingPage = ({ setMedicalData }) => {
         const result = await response.json();
         const cleaned = cleanJsonString(result.geminiResponse);
         const json = JSON.parse(cleaned);
-        if(json.status === false){
-          alert("Uploaded file is not a valid medical report.");
-          setLoading(false);
-          return;
-        }
-
+        console.log("Parsed JSON:", json);
         setMedicalData(json);
         if (result.success) {
           setLoading(false);
@@ -89,8 +84,13 @@ const MedicalAILandingPage = ({ setMedicalData }) => {
         setMedicalData(json);
 
         if (result.success) {
-          setLoading(false);
-          navigate("/dashboard");
+          if (json.status === false) {
+            setLoading(false);
+            alert(json.msg);
+          } else {
+            setLoading(false);
+            navigate("/dashboard");
+          }
         } else {
           alert("Error uploading image: " + result.error);
           setLoading(false);
