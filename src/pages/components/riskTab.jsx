@@ -16,7 +16,6 @@ const RisksTab = ({ data, selectedRisk, onSelectRisk }) => {
     if (score >= 40) return 'text-yellow-400';
     return 'text-green-400';
   };
-  console.log("RisksTab data:", data);
 
   return (
     <div className="space-y-6">
