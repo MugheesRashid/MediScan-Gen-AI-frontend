@@ -53,23 +53,10 @@ const MedicalAIDashboard = ({ medicalData }) => {
           <nav className="sticky top-0 z-50 bg-white/5 backdrop-blur-md border-b border-white/10 px-6 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-r from-[#00C2A8] to-[#1F8A70] flex items-center justify-center shadow-lg shadow-[#00C2A8]/30">
-                  <svg
-                    className="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                    ></path>
-                  </svg>
-                </div>
-                <span className="text-xl font-bold">MediScan AI</span>
+                <div className="w-10 h-10 rounded-full bg-[url('./logo.png')] bg-cover bg-center flex items-center justify-center"></div>
+                <span className="text-xl chakra-petch font-bold bg-gradient-to-r from-[#69BA4C] to-[#1F8A70] bg-clip-text text-transparent">
+                  MediScan
+                </span>
               </div>
 
               <div className="hidden md:block">
@@ -188,7 +175,9 @@ const MedicalAIDashboard = ({ medicalData }) => {
                   <LifestyleTab data={medicalData.recommendations} />
                 )}
                 {activeTab === "medication" && (
-                  <Medication medication={medicalData.recommendations.medication} />
+                  <Medication
+                    medication={medicalData.recommendations.medication}
+                  />
                 )}
                 {/* {activeTab === "trends" && (
                   <TrendsTab

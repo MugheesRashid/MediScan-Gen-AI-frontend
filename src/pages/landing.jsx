@@ -54,8 +54,7 @@ const MedicalAILandingPage = ({ setMedicalData }) => {
       if (isPDF) {
         // Send to PDF API
         formData.append("pdf", selectedFile);
-        const response = await fetch("https://medicare-gen-ai-backend.up.railway.app/api/upload/pdf", {
-        // const response = await fetch("https://medicare-gen-ai-backend.up.railway.app/api/upload/pdf", {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/upload/pdf`, {
           method: "POST",
           body: formData,
         });
@@ -77,11 +76,13 @@ const MedicalAILandingPage = ({ setMedicalData }) => {
         }
       } else if (isImage) {
         formData.append("image", selectedFile);
-        const response = await fetch("https://medicare-gen-ai-backend.up.railway.app/api/upload/image", {
-        // const response = await fetch("https://medicare-gen-ai-backend.up.railway.app/api/upload/image", {
-          method: "POST",
-          body: formData,
-        });
+        const response = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/api/upload/image`,
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
         const result = await response.json();
         const cleaned = cleanJsonString(result.geminiResponse);
         const json = JSON.parse(cleaned);
@@ -118,23 +119,10 @@ const MedicalAILandingPage = ({ setMedicalData }) => {
           {/* Navigation */}
           <nav className="container mx-auto px-6 py-6 flex justify-between items-center">
             <div className="flex items-center space-x-2">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-r from-[#00C2A8] to-[#1F8A70] flex items-center justify-center">
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                  ></path>
-                </svg>
-              </div>
-              <span className="text-xl font-bold">MediScan AI</span>
+              <div className="w-10 h-10 rounded-full bg-[url('./logo.png')] bg-cover bg-center flex items-center justify-center"></div>
+              <span className="text-xl chakra-petch font-bold bg-gradient-to-r from-[#69BA4C] to-[#1F8A70] bg-clip-text text-transparent">
+                MediScan
+              </span>
             </div>
 
             <div className="hidden md:flex space-x-8">
@@ -278,22 +266,7 @@ const MedicalAILandingPage = ({ setMedicalData }) => {
 
                       <div className="p-6">
                         <div className="flex items-center mb-6">
-                          <div className="w-12 h-12 rounded-full bg-[#00C2A8]/20 flex items-center justify-center mr-4">
-                            <svg
-                              className="w-6 h-6 text-[#00C2A8]"
-                              fill="none"
-                              stroke="currentColor"
-                              viewBox="0 0 24 24"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                              ></path>
-                            </svg>
-                          </div>
+                          <div className="w-12 h-12 rounded-full bg-[url('./logo.png')] bg-cover bg-center flex items-center justify-center mr-4"></div>
                           <div>
                             <h3 className="font-bold text-lg">
                               Optimal Health Status
@@ -827,9 +800,9 @@ const MedicalAILandingPage = ({ setMedicalData }) => {
                     </p>
 
                     <div className="space-y-4">
-                      <SecurityFeature title="End-to-End Encryption" />
-                      <SecurityFeature title="No Data Stored Without Permission" />
-                      <SecurityFeature title="Medically Verified Knowledge Sources" />
+                      <SecurityFeature title="Encrypted Data Handling" />
+                      <SecurityFeature title="No Data Stored" />
+                      <SecurityFeature title="Medically Verified Knowledge Sources(use Gemini latest available model)" />
                       <SecurityFeature title="Secure Upload Protocols" />
                     </div>
                   </div>
@@ -920,14 +893,14 @@ const MedicalAILandingPage = ({ setMedicalData }) => {
                 <div className="space-y-4">
                   <FAQItem
                     question="Is this AI medically reliable?"
-                    answer="MediScan AI is built on medically verified knowledge sources and follows clinical guidelines. However, it's designed to complement, not replace, professional medical advice. Always consult with healthcare providers for diagnosis and treatment decisions."
+                    answer="The AI provides insights based on medically verified knowledge sources, but it is not a substitute for professional medical advice, diagnosis, or treatment. While it aims to interpret your report accurately, results may not always be perfect. You should always verify important health information with a qualified healthcare professional. I am not responsible for any incorrect interpretations or decisions made based on the AI’s output."
                     isActive={activeFaq === 0}
                     onClick={() => toggleFaq(0)}
                   />
 
                   <FAQItem
                     question="What types of medical reports can I upload?"
-                    answer="You can upload blood test results, lab reports, imaging summaries (MRI, CT, X-ray), and other medical documents in PDF, JPG, or PNG formats. Our AI is trained to extract and analyze data from most standard medical report formats."
+                    answer="You can upload standard lab reports for analysis. The system accepts files in image formats (like JPG, PNG) and PDFs only. Our system is trained to extract and analyze data from most standard medical report formats."
                     isActive={activeFaq === 1}
                     onClick={() => toggleFaq(1)}
                   />
@@ -948,7 +921,7 @@ const MedicalAILandingPage = ({ setMedicalData }) => {
 
                   <FAQItem
                     question="Is this free or paid?"
-                    answer="We offer a free tier with basic report analysis and a premium subscription with advanced features like risk prediction, personalized recommendations, and ongoing health tracking. You can try our basic analysis for free without any commitment."
+                    answer="100% Free."
                     isActive={activeFaq === 4}
                     onClick={() => toggleFaq(4)}
                   />
@@ -959,7 +932,7 @@ const MedicalAILandingPage = ({ setMedicalData }) => {
 
           {/* Final CTA Section */}
           <section className="py-16 bg-gradient-to-r from-[#00C2A8] to-[#1F8A70] rounded-t-3xl">
-            <div className="container mx-auto px-6 text-center text-[#0A1A2F] relative">
+            <div className="container mx-auto px-6 text-center text-[#fdfdfd] relative">
               <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-white/20 rounded-full blur-xl"></div>
 
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -969,14 +942,17 @@ const MedicalAILandingPage = ({ setMedicalData }) => {
                 Upload your report and get clarity within seconds.
               </p>
 
-              <button className="px-8 py-4 rounded-xl bg-[#0A1A2F] text-white hover:bg-[#0D2A4A] transition-colors font-semibold shadow-lg mb-6">
+              <button
+                onClick={() => file.current.click()}
+                className="px-8 py-4 rounded-xl bg-[#0A1A2F] text-white hover:bg-[#0D2A4A] transition-colors font-semibold shadow-lg mb-6"
+              >
                 Upload Your Medical Report
               </button>
 
               <div className="flex justify-center space-x-6 text-sm">
                 <span>No credit card required</span>
                 <span>•</span>
-                <span>Free basic analysis</span>
+                <span>Free analysis</span>
                 <span>•</span>
                 <span>Secure & private</span>
               </div>
@@ -988,44 +964,10 @@ const MedicalAILandingPage = ({ setMedicalData }) => {
             <div className="container mx-auto px-6">
               <div className="flex flex-col md:flex-row justify-between items-center">
                 <div className="flex items-center space-x-2 mb-4 md:mb-0">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#00C2A8] to-[#1F8A70] flex items-center justify-center">
-                    <svg
-                      className="w-5 h-5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                      ></path>
-                    </svg>
-                  </div>
-                  <span className="text-lg font-bold">MediScan AI</span>
-                </div>
-
-                <div className="flex space-x-6 mb-4 md:mb-0">
-                  <a
-                    href="#"
-                    className="hover:text-[#00C2A8] transition-colors"
-                  >
-                    Privacy Policy
-                  </a>
-                  <a
-                    href="#"
-                    className="hover:text-[#00C2A8] transition-colors"
-                  >
-                    Terms of Service
-                  </a>
-                  <a
-                    href="#"
-                    className="hover:text-[#00C2A8] transition-colors"
-                  >
-                    Contact Us
-                  </a>
+                  <div className="w-10 h-10 rounded-full bg-[url('./logo.png')] bg-cover bg-center flex items-center justify-center"></div>
+                  <span className="text-xl chakra-petch font-bold bg-gradient-to-r from-[#69BA4C] to-[#1F8A70] bg-clip-text text-transparent">
+                    MediScan
+                  </span>
                 </div>
 
                 <div className="text-gray-400 text-sm">

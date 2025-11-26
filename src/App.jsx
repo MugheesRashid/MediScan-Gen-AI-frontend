@@ -1,15 +1,26 @@
+import React, { Suspense, lazy, useEffect } from "react";
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import MedicalAILandingPage from "./pages/landing";
-import Dashboard from "./pages/dashboard";
 import MedicalAILoader from "./pages/medicalAILoader";
+
+const MedicalAILandingPage = lazy(() => import("./pages/landing"));
+const Dashboard = lazy(() => import("./pages/dashboard"));
 
 function App() {
   const [medicalData, setMedicalData] = useState(null);
 
+  useEffect(() => {
+    const stored = sessionStorage.getItem("medicalData");
+    if (stored && !medicalData) setMedicalData(JSON.parse(stored));
+  }, []);
+
+  useEffect(() => {
+    if (medicalData) sessionStorage.setItem("medicalData", JSON.stringify(medicalData));
+  }, [medicalData]);
+
   return (
-    <>
+    <Suspense fallback={<div>Loading...</div>}>
       <Routes>
         <Route
           path="/"
@@ -21,7 +32,7 @@ function App() {
         />
         <Route path="/loading" element={<MedicalAILoader />} />
       </Routes>
-    </>
+    </Suspense>
   );
 }
 

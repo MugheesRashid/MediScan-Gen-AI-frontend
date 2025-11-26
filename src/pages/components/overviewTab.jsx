@@ -1,5 +1,3 @@
-
-
 const OverviewTab = ({ data, abnormalCount }) => {
   return (
     <div className="space-y-6">
@@ -27,7 +25,8 @@ const OverviewTab = ({ data, abnormalCount }) => {
               <div className="flex items-center">
                 <div className="w-full bg-white/10 rounded-full h-2 mr-3">
                   <div 
-                    className={`bg-[#00C2A8] h-2 rounded-full transition-all duration-500 w-[${data.overallHealth.confidence}`}
+                    className="bg-[#00C2A8] h-2 rounded-full transition-all duration-500"
+                    style={{ width: `${parseInt(String(data.overallHealth.confidence).replace('%','') || 0)}%` }}
                   ></div>
                 </div>
                 <span className="text-sm font-medium">{data.overallHealth.confidence}</span>
