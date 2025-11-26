@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import MedicalAILoader from "./pages/medicalAILoader";
+import LoadingScreen from "./pages/loadingScreen"
 
 const MedicalAILandingPage = lazy(() => import("./pages/landing"));
 const Dashboard = lazy(() => import("./pages/dashboard"));
@@ -20,7 +21,7 @@ function App() {
   }, [medicalData]);
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<LoadingScreen />}>
       <Routes>
         <Route
           path="/"
