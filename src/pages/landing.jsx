@@ -119,7 +119,7 @@ const MedicalAILandingPage = ({ setMedicalData }) => {
           {/* Navigation */}
           <nav className="container mx-auto px-6 py-6 flex justify-between items-center">
             <div className="flex items-center space-x-2">
-              <div className="w-10 h-10 rounded-full bg-[url('./logo.png')] bg-cover bg-center flex items-center justify-center"></div>
+              <div className="w-10 h-10 rounded-full bg-[url('./assets/logo.png')] bg-cover bg-center flex items-center justify-center"></div>
               <span className="text-xl chakra-petch font-bold bg-gradient-to-r from-[#69BA4C] to-[#1F8A70] bg-clip-text text-transparent">
                 MediScan
               </span>
@@ -266,7 +266,7 @@ const MedicalAILandingPage = ({ setMedicalData }) => {
 
                       <div className="p-6">
                         <div className="flex items-center mb-6">
-                          <div className="w-12 h-12 rounded-full bg-[url('./logo.png')] bg-cover bg-center flex items-center justify-center mr-4"></div>
+                          <div className="w-12 h-12 rounded-full bg-[url('./assets/logo.png')] bg-cover bg-center flex items-center justify-center mr-4"></div>
                           <div>
                             <h3 className="font-bold text-lg">
                               Optimal Health Status
@@ -964,7 +964,7 @@ const MedicalAILandingPage = ({ setMedicalData }) => {
             <div className="container mx-auto px-6">
               <div className="flex flex-col md:flex-row justify-between items-center">
                 <div className="flex items-center space-x-2 mb-4 md:mb-0">
-                  <div className="w-10 h-10 rounded-full bg-[url('./logo.png')] bg-cover bg-center flex items-center justify-center"></div>
+                  <div className="w-10 h-10 rounded-full bg-[url('./assets/logo.png')] bg-cover bg-center flex items-center justify-center"></div>
                   <span className="text-xl chakra-petch font-bold bg-gradient-to-r from-[#69BA4C] to-[#1F8A70] bg-clip-text text-transparent">
                     MediScan
                   </span>
