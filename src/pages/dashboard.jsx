@@ -328,7 +328,7 @@ const AIChatAssistant = ({ isOpen, onToggle }) => {
     setTimeout(() => {
       const aiResponse = {
         id: Date.now() + 1,
-        text: "I understand you're asking about your results. Based on your biomarkers, I can provide more detailed explanations for any specific values you're concerned about.",
+        text: "Sorry, I am out of order for now...",
         isAI: true,
       };
       setMessages((prev) => [...prev, aiResponse]);
