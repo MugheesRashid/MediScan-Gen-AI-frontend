@@ -183,11 +183,6 @@ npm lint
    - Review personalized risk assessments
    - Understand risk factors and contributing biomarkers
 
-### 6. **Track Trends**
-   - Use the "Trends" tab to visualize changes over time
-   - Select different timeframes (6 months, 1 year, etc.)
-   - Identify patterns and improvements
-
 ### 7. **Review Medications**
    - Check the "Medications" tab
    - See potential interactions
@@ -257,14 +252,6 @@ Includes:
 - Contributing factors
 - Clinical recommendations
 - Confidence levels
-
-#### `TrendsTab.jsx`
-Provides:
-- Time-series visualization
-- Customizable timeframe selection
-- Trend direction indicators
-- Comparative analysis
-- Export capabilities
 
 #### `medicationTab.jsx`
 Contains:
