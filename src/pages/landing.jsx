@@ -1,6 +1,10 @@
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MedicalAILoader from "./medicalAILoader";
+import * as pdfjsLib from "pdfjs-dist";
+
+// Set worker Src using a reliable CDN that matches the package version
+pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
 
 const MedicalAILandingPage = ({ setMedicalData }) => {
   const [activeFaq, setActiveFaq] = useState(null);
@@ -27,6 +31,33 @@ const MedicalAILandingPage = ({ setMedicalData }) => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  };
+
+  // Helper to extract text from PDF client-side
+  const extractTextFromPDF = async (pdfFile) => {
+    const arrayBuffer = await pdfFile.arrayBuffer();
+    const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+    const pdf = await loadingTask.promise;
+    let textContent = "";
+
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const page = await pdf.getPage(i);
+      const content = await page.getTextContent();
+      const strings = content.items.map((item) => item.str);
+      textContent += strings.join(" ") + "\n";
+    }
+
+    return textContent;
+  };
+
+  // Helper to convert image file to Base64 data URL client-side
+  const convertImageToBase64 = (imageFile) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(imageFile);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
   };
 
   const fileSubmit = async () => {
@@ -58,19 +89,35 @@ const MedicalAILandingPage = ({ setMedicalData }) => {
     }
 
     try {
-      const formData = new FormData();
-
       if (isPDF) {
-        // Send to PDF API
-        formData.append("pdf", selectedFile);
-        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/upload/pdf`, {
+        // Extract text from PDF in the browser
+        const extractedText = await extractTextFromPDF(selectedFile);
+        
+        if (!extractedText.trim()) {
+          throw new Error(
+            "No readable text could be extracted from this PDF. Please ensure it contains selectable text (not scanned images)."
+          );
+        }
+
+        // Send extracted text to the backend
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/analyze-text`, {
           method: "POST",
-          body: formData,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ text: extractedText }),
         });
+        
         const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result.error || result.details || "Failed to analyze PDF");
+        }
+
         const cleaned = cleanJsonString(result.geminiResponse);
         const json = JSON.parse(cleaned);
         setMedicalData(json);
+
         if (result.success) {
           if (json.status === false) {
             setLoading(false);
@@ -83,16 +130,32 @@ const MedicalAILandingPage = ({ setMedicalData }) => {
           alert("Error processing PDF: " + result.error);
           setLoading(false);
         }
+
       } else if (isImage) {
-        formData.append("image", selectedFile);
+        // Convert image to Base64 in the browser
+        const base64Image = await convertImageToBase64(selectedFile);
+
+        // Send Base64 image to the backend
         const response = await fetch(
-          `${import.meta.env.VITE_BACKEND_URL}/api/upload/image`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/analyze-image`,
           {
             method: "POST",
-            body: formData,
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              image: base64Image,
+              mimeType: fileType,
+            }),
           }
         );
+        
         const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result.error || result.details || "Failed to analyze image");
+        }
+
         const cleaned = cleanJsonString(result.geminiResponse);
         const json = JSON.parse(cleaned);
         setMedicalData(json);
@@ -110,8 +173,6 @@ const MedicalAILandingPage = ({ setMedicalData }) => {
           setLoading(false);
         }
       }
-
-      // Reset file input
     } catch (error) {
       console.error("Upload error:", error);
       setLoading(false);
